@@ -55,7 +55,14 @@
 	
 		<div style="margin-top: 40px;">
 			<!--
-				data attributes:
+				Each "widget" element below defines a single widget. 
+				Each widget needs 3 data attributes: type, item & title.
+				The other attributes only apply to certain types.
+
+				TODO: 
+				This is just an example setup - replace it with the widgets you want to show!
+				
+				The different data attributes:
 				- type: switch, sensor, openclose, weather, trash
 				- item: exact same item name as in OpenHAB items file
 				- title: text to display in bottom part of widget
@@ -79,6 +86,8 @@
 			<widget data-type="trash" data-title="Trash" data-trashday="3" data-recycleday="4"></widget>
 		
 		</div>
+		
+		<!-- If you don't want to use the weather bar, remove the whole section below -->
 		
 		<div class="weatherbar">
 			<div class="weather_observation">
@@ -105,6 +114,8 @@
 			<div id="observation_time" style="position: absolute; bottom: 95px; left: 5px; font-size: 0.5em; font-style: italic; color: #888888;">?</div>
 			<div id="forecast_time" style="position: absolute; bottom: 95px; right: 15px; font-size: 0.5em; font-style: italic; color: #888888;">?</div>
 		</div>
+		
+		<!-- End of weather section -->
 	
 	</body>
 </html
