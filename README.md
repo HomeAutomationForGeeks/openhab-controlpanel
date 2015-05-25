@@ -1,9 +1,19 @@
 # openhab-controlpanel
-A simple dashboard using the OpenHAB REST services, running on a Raspberry Pi.
+A simple dashboard using the OpenHAB REST services.
 
 ### See also
 
 http://www.homeautomationforgeeks.com/dashboard.shtml
+
+## Table of Contents
+
+* [Screenshot](#screenshot)
+* [Features](#features)
+* [Installing Prerequisitesn](#installing-prerequisites)
+* [The Weather Underground API](#the-weather-underground-api)
+* [Installation](#installation)
+* [Included Dependencies](#included-dependencies)
+* [Full Screen Mode On Your Android Tablet](#full-screen-mode-on-your-android-tablet)
 
 ## Screenshot
 
@@ -13,14 +23,14 @@ http://www.homeautomationforgeeks.com/dashboard.shtml
 
 * Switches: display the on/off status of switches (green = on) + tap to toggle them
 * Open/close sensors: display the open/close status of eg. a door sensor (red = open) + tap to view a log of recent entries
-* Data sensors: display sensor data + tap to view a log recent data
+* Data sensors: display sensor data + tap to view a log of recent data
 * Weather data: get up-to-date weather info from a nearby weather station
 * Trash reminder: on trash days, a trash icon appears as a reminder. On recycle days, a recycle icon appears
 
-## Setup Instructions
+## Installing Prerequisites
 
-### Raspberry Pi
-This dashboard is intended to run on a Raspberry Pi but can probably run on most systems with very little modification.
+### Raspberry Pi / Linux
+This dashboard was created on a Raspberry Pi 2 but can probably run on most systems with very little modification.
 
 #### Apache
 To install Apache on your Raspberry Pi:
@@ -39,9 +49,9 @@ If you enabled persistence in OpenHAB and want to be able to view logs, you also
 
 ### The Weather Underground API
 
-The weather widget uses the [Weather Underground API](http://www.wunderground.com/weather/api/) to get weather data. Like all widgets, it is entirely optional and you can remove it if you don't want it. If you do plan to use it, you'll need two things:
+The weather bar uses the [Weather Underground API](http://www.wunderground.com/weather/api/) to get weather data. You can remove it if you don't want this. If you keep it, you'll need:
 
-* A (free) API key
+* A (free) Weather Underground API key
 * A weather station ID
 
 #### Start by requesting an API key:
@@ -76,6 +86,12 @@ The main files are:
 * data.php: used to query the openhab logs in MySQL and return the last 6 entries as JSON ([PHP](http://www.w3schools.com/php/))
 
 There's also logging: you configure the amount of logging by changing the loggingLevel value in index.html. To see the log output, press F12 while in your browser and make sure the "console" tab is selected.
+
+## Included Dependencies
+
+* [JQuery](https://jquery.com/) v1.11.1
+* [JQuery Atmosphere](https://github.com/Atmosphere/atmosphere-javascript)
+* [Font Awesome](https://fortawesome.github.io/Font-Awesome/)
 
 ## Full Screen Mode on your Android tablet
 
