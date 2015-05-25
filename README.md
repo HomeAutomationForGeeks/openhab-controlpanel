@@ -7,7 +7,7 @@ http://www.homeautomationforgeeks.com/dashboard.shtml
 
 ## Table of Contents
 
-* [Screenshot](#screenshot)
+* [Screenshots](#screenshots)
 * [Features](#features)
 * [Installing Prerequisitesn](#installing-prerequisites)
 * [The Weather Underground API](#the-weather-underground-api)
@@ -15,9 +15,15 @@ http://www.homeautomationforgeeks.com/dashboard.shtml
 * [Included Dependencies](#included-dependencies)
 * [Full Screen Mode On Your Android Tablet](#full-screen-mode-on-your-android-tablet)
 
-## Screenshot
+## Screenshots
+
+### Example setup
 
 ![Example setup](https://github.com/HomeAutomationForGeeks/openhab-controlpanel/raw/master/screenshots/screenshot1.png)
+
+### Running on a $50 dollar Android tablet, hanging on the wall
+
+![Running on an Android tablet](https://github.com/HomeAutomationForGeeks/openhab-controlpanel/raw/master/screenshots/screenshot2.png)
 
 ## Features
 
