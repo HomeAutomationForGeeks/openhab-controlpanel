@@ -1,4 +1,3 @@
-var stateChecker;
 var socket = $.atmosphere;
 
 function Start()
