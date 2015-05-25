@@ -10,6 +10,7 @@ This dashboard is intended to run on a Raspberry Pi but can probably run on most
 
 #### Apache
 To install Apache on your Raspberry Pi:
+
 `sudo apt-get install apache2`
 
 To check if Apache works, just browse to your Pi's IP address (eg. http://192.168.1.80). If Apache installed correctly, you'll see a page saying "It works!".
@@ -19,6 +20,7 @@ To check if Apache works, just browse to your Pi's IP address (eg. http://192.16
 If you enabled persistence in OpenHAB and want to be able to view logs, you also need to install PHP, and the MySQL PHP libraries:
 
 `sudo apt-get install php5 libapache2-mod-php5`
+
 `sudo apt-get install php5-mysql`
 
 ### The Weather Underground API
