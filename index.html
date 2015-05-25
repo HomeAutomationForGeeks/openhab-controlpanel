@@ -1,0 +1,111 @@
+<html>
+	<head>
+		<title>HA Dashboard</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		
+		<!--
+			This viewport specification makes touch events a little more responsive in Chrome for Android
+		-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.atmosphere.js"></script>
+		<script src="js/dashboard.js"></script>
+		
+		<link rel="stylesheet" href="css/style.css" />
+		<!--
+			The "manifest.json" file enables the "Add to homescreen" functionality in Chrome for Android
+			see https://developer.chrome.com/multidevice/android/installtohomescreen
+			
+			House icon made by <a href="http://fontawesome.io" title="Dave Gandy">Dave Gandy</a> 
+			from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under 
+			<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+		-->
+		<link rel="manifest" href="manifest.json">
+		
+		<script type="text/javascript">
+			// OpenHAB URL (without the "http://" part; note that you can't use "localhost" or "127.0.0.1" or OpenHAB will send "Connection Refused")
+			var openhabURL = "192.168.1.80:8080/rest/items/";	// TODO: change this to your Pi's IP address
+			// Log URL
+			var logURL = "http://192.168.1.80/data.php?table=";	// TODO: change this to your Pi's IP address
+			// Wunderground API
+			// TODO: insert your API key and location code (example location code: pws:KNYNEWYO118)
+			var weatherURL = "http://api.wunderground.com/api/YOUR_API_KEY_HERE/conditions/q/YOUR_LOCATION_CODE_HERE.json";
+			var forecastURL = "http://api.wunderground.com/api/YOUR_API_KEY_HERE/forecast/q/YOUR_LOCATION_CODE_HERE.json";
+			// Logging level (0 = off, 1 = ajax errors only, 2 = some logging, 3 = full logging)
+			var loggingLevel = 3;
+			// How often to check states (in milliseconds)
+			var pollFrequency = 1000;	// every second
+			// How often to check weather (in milliseconds)
+			var weatherFrequency = 600000;	// every 600 seconds (= 10 minutes)
+			var forecastFrequency = 3600000;	// every 3600 seconds (= 1 hour)
+
+			$(document).ready(function() {
+				Log("Document ready", 2);
+				Start();
+			});
+		</script>
+	</head>
+	<body>
+	
+		<div class="topbar">
+			<div class="date">2015-01-01</div>
+			<div class="refresh fa fa-refresh fa-fw" onclick="history.go(0)"></div>
+			<div class="clock">12:00</div>
+		</div>
+	
+		<div style="margin-top: 40px;">
+			<!--
+				data attributes:
+				- type: switch, sensor, openclose, weather, trash
+				- item: exact same item name as in OpenHAB items file
+				- title: text to display in bottom part of widget
+				- icon: [optional] [type=switch only]
+						see https://fortawesome.github.io/Font-Awesome/icons/ for possible values
+						when omitted defaults to a lightbulb
+				- format: [optional] [type=sensor only]
+						can be used to add characters around the value returned
+				- trashday/recycleday: [type=trash only]
+						Trash days; values range from 0 (Sunday) to 6 (Saturday)
+			-->
+		
+			<widget data-type="switch" data-item="KanKun" data-title="Living Room"></widget>
+			
+			<widget data-type="switch" data-item="CamSwitch" data-title="Camera" data-icon="video-camera"></widget>
+			
+			<widget data-type="openclose" data-item="Door_Motion" data-title="Front Door" data-logid="Item3"></widget>
+			
+			<widget data-type="sensor" data-item="Door_Temperature" data-title="Front Door" data-format="{0}&deg;" data-logid="Item5"></widget>
+			
+			<widget data-type="trash" data-title="Trash" data-trashday="3" data-recycleday="4"></widget>
+		
+		</div>
+		
+		<div class="weatherbar">
+			<div class="weather_observation">
+				<div style="position: absolute; font-size: 3em; font-weight: bold; color: #333333; right: 10px; bottom: 15px;">NOW</div>
+				<img src="weather/clear.png" id="observation_icon" style="position: absolute; bottom: 30px; left: 10px; -webkit-filter: invert(100%)" />
+				<div id="observation_weather" style="position: absolute; bottom: 36px; left: 80px; font-size: 1.8em;">?</div>
+				<div id="observation_temperature" style="position: absolute; bottom: 46px; right: 10px; font-size: 1.5em;">?</div>
+				<div id="observation_feelslike" style="position: absolute; bottom: 15px; right: 10px; font-size: 0.75em; font-style: italic;">?</div>
+			</div>
+			<div class="weather_forecast" id="weather_today">
+				<div id="forecast_title" style="position: absolute; font-size: 3em; font-weight: bold; color: #333333; right: 5px; bottom: 15px;">?</div>
+				<img src="weather/nt_clear.png" id="forecast_icon" style="position: absolute; bottom: 30px; left: 10px; -webkit-filter: invert(100%)" />
+				<div id="forecast_conditions" style="position: absolute; bottom: 36px; left: 80px; font-size: 1.8em;">?</div>
+				<div id="forecast_high" style="position: absolute; bottom: 46px; right: 10px; font-size: 1.5em;">?</div>
+				<div id="forecast_low" style="position: absolute; bottom: 15px; right: 10px; font-size: 0.75em; font-style: italic;">?</div>
+			</div>
+			<div class="weather_forecast" id="weather_tomorrow" style="display: none;">
+				<div id="forecast_title" style="position: absolute; font-size: 3em; font-weight: bold; color: #333333; right: 5px; bottom: 15px;">?</div>
+				<img src="weather/nt_clear.png" id="forecast_icon" style="position: absolute; bottom: 30px; left: 10px; -webkit-filter: invert(100%)" />
+				<div id="forecast_conditions" style="position: absolute; bottom: 36px; left: 80px; font-size: 1.8em;">?</div>
+				<div id="forecast_high" style="position: absolute; bottom: 46px; right: 10px; font-size: 1.5em;">?</div>
+				<div id="forecast_low" style="position: absolute; bottom: 15px; right: 10px; font-size: 0.75em; font-style: italic;">?</div>
+			</div>
+			<div id="observation_time" style="position: absolute; bottom: 95px; left: 5px; font-size: 0.5em; font-style: italic; color: #888888;">?</div>
+			<div id="forecast_time" style="position: absolute; bottom: 95px; right: 15px; font-size: 0.5em; font-style: italic; color: #888888;">?</div>
+		</div>
+	
+	</body>
+</html

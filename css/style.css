@@ -1,0 +1,152 @@
+@import url(font-awesome.min.css);
+@import url("http://fonts.googleapis.com/css?family=Roboto:100,300,100italic,300italic");
+
+/* Widgets */
+
+widget {
+	float: left;
+	width: 200px;
+	height: 180px;
+	padding: 10px;
+	margin: 8px;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 4px;
+	border: solid 1px rgba(255, 255, 255, 0.3);
+	background-color: #21232D;
+}
+
+.icon {
+	text-decoration: none;
+	border-bottom: none;
+	position: relative;
+	background: #272833;
+	border-radius: 100%;
+	display: inline-block;
+	text-align: center;
+	line-height: 6em;
+	width: 6em;
+	margin: 0.4em;
+}
+
+.icon:before {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	text-transform: none !important;
+	font-size: 2.25em;
+	/* the next two lines make it so the outline of the icon is shown instead of the icon itself */
+	color: #272833 !important;
+	text-shadow: 1px 0 0 #ffffff, -1px 0 0 #ffffff, 0 1px 0 #ffffff, 0 -1px 0 #ffffff;
+}
+
+.sensor {
+	font-size: 2.5em;
+	font-weight: bold;
+}
+
+.switchon {
+	background-color: #267A00 !important;
+}
+
+.trash {
+	background-color: #AF9200 !important;
+}
+
+.dooropen {
+	background-color: #BC1D1A !important;
+}
+
+.logrow {
+	font-size: 0.3em;
+	text-align: left;
+	font-weight: normal;
+}
+
+/* Top bar */
+
+.topbar{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 37px;
+	background-color: #21232D;
+	border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+	clear: both;
+	font-size: 1.5em;
+}
+
+.clock{
+	width: 100px;
+	text-align: center;
+	font-weight: bold;
+	margin: 0 auto;
+	font-family: consolas;
+	padding-top: 1px;
+}
+
+.date{
+	float: left;
+	line-height: 1em;
+	margin: 8px 0 0 5px;
+	font-size: 0.75em;
+}
+
+.refresh{
+	width: 30px;
+	float: right;
+	line-height: 1em;
+	margin: 6px 13px 0 0;
+	cursor: pointer;
+	font-size: 0.8em;
+}
+
+/* Bottom bar */
+
+.weatherbar{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 100px;
+	background-color: #21232D;
+	border-top: solid 1px rgba(255, 255, 255, 0.3);
+	clear: both;
+}
+
+.weather_observation{
+	position: absolute; 
+	bottom: 0; 
+	left: 0; 
+	width: 500px; 
+	height: 100px;
+}
+
+.weather_forecast{
+	position: absolute; 
+	bottom: 0; 
+	left: 500px; 
+	width: 500px; 
+	height: 100px; 
+	border-left: solid 1px rgba(255, 255, 255, 0.3);
+}
+
+/* General stuff */
+
+html, body {
+	background-color: #1c1d26;
+	color: rgba(255, 255, 255, 0.75);
+	font-family: "Roboto", Helvetica, sans-serif;
+	font-size: 15pt;
+	font-weight: 100;
+	line-height: 1.75em;
+}
+
+h3 {
+	color: #ffffff;
+	font-weight: 300;
+	font-size: 1.35em;
+	line-height: 1.5em;
+	margin: 0 0 1em 0;
+}
