@@ -1,9 +1,23 @@
 # openhab-controlpanel
 A simple dashboard using the OpenHAB REST services, running on a Raspberry Pi.
 
-## Setup Instructions
 ### See also
+
 http://www.homeautomationforgeeks.com/dashboard.shtml
+
+## Screenshot
+
+![Example setup](https://github.com/HomeAutomationForGeeks/openhab-controlpanel/raw/master/screenshots/screenshot1.png)
+
+## Features
+
+* Switches: display the on/off status of switches (green = on) + tap to toggle them
+* Open/close sensors: display the open/close status of eg. a door sensor (red = open) + tap to view a log of recent entries
+* Data sensors: display sensor data + tap to view a log recent data
+* Weather data: get up-to-date weather info from a nearby weather station
+* Trash reminder: on trash days, a trash icon appears as a reminder. On recycle days, a recycle icon appears
+
+## Setup Instructions
 
 ### Raspberry Pi
 This dashboard is intended to run on a Raspberry Pi but can probably run on most systems with very little modification.
