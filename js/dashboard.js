@@ -215,8 +215,10 @@ function GetHistory(widget)
 
 function GetWeather()
 {
-	GetWeatherConditions();
-	GetWeatherForecast()
+	if ($("div.weatherbar").length) {
+		GetWeatherConditions();
+		GetWeatherForecast()
+	}
 }
 
 function GetWeatherConditions()
@@ -233,7 +235,7 @@ function GetWeatherConditions()
 		Log(data, 4);
 		// The weather service sends back a lot of data, but we'll only use some
 		$("#observation_icon").attr("src", "weather/" + data.current_observation.icon + ".png");
-		$("#observation_weather").html(data.current_observation.weather);
+		$("#observation_weather").html(ParseWeatherConditions(data.current_observation.weather));
 		$("#observation_temperature").html(data.current_observation.temperature_string);
 		$("#observation_feelslike").html("feels like: " + data.current_observation.feelslike_string);
 		$("#observation_time").html(data.current_observation.observation_time);
@@ -260,13 +262,13 @@ function GetWeatherForecast()
 		// The weather service sends back a lot of data, but we'll only use some
 		$("#forecast_title", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].date.weekday);
 		$("#forecast_icon", "#weather_today").attr("src", "weather/" + data.forecast.simpleforecast.forecastday[0].icon + ".png");
-		$("#forecast_conditions", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].conditions);
+		$("#forecast_conditions", "#weather_today").html(ParseWeatherConditions(data.forecast.simpleforecast.forecastday[0].conditions));
 		$("#forecast_high", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].high.fahrenheit + "F (" + data.forecast.simpleforecast.forecastday[0].high.celsius + "C)");
 		$("#forecast_low", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].low.fahrenheit + "F (" + data.forecast.simpleforecast.forecastday[0].low.celsius + "C)");
 		
 		$("#forecast_title", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].date.weekday);
 		$("#forecast_icon", "#weather_tomorrow").attr("src", "weather/" + data.forecast.simpleforecast.forecastday[1].icon + ".png");
-		$("#forecast_conditions", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].conditions);
+		$("#forecast_conditions", "#weather_tomorrow").html(ParseWeatherConditions(data.forecast.simpleforecast.forecastday[1].conditions));
 		$("#forecast_high", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].high.fahrenheit + "F (" + data.forecast.simpleforecast.forecastday[1].high.celsius + "C)");
 		$("#forecast_low", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].low.fahrenheit + "F (" + data.forecast.simpleforecast.forecastday[1].low.celsius + "C)");
 		
@@ -286,6 +288,16 @@ function GetWeatherForecast()
 	});
 	
 	setTimeout(GetWeatherForecast, forecastFrequency);
+}
+
+// Some descriptions are a bit too long, so we replace them with something a little shorter
+function ParseWeatherConditions(conditions) {
+	switch (conditions.toLowerCase()) {
+		case "chance of a thunderstorm":
+			return "Chance of Storm"
+		default:
+			return conditions;
+	}
 }
 
 // Capture Clicks
