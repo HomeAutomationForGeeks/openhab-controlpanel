@@ -16,15 +16,10 @@ function Start()
 function StartTime() {
 	var today = new Date();
 
-	$("div.clock").html(today.getHours() + ":" + CheckTime(today.getMinutes()));
+	$("div.clock").html(today.getHours() + ":" + ToDoubleDigits(today.getMinutes()));
 	$("div.date").html(today.toDateString());
 
 	setTimeout(function(){ StartTime() }, 1000);
-}
-
-function CheckTime(i) {
-	if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-	return i;
 }
 
 // Called once when the page is first loaded
@@ -36,7 +31,7 @@ function BuildWidgets()
 		
 		Log("[BuildWidgets] " + widget.data("title"), 2);
 		
-		var icon = $(this).data("icon") || "lightbulb-o";
+		var icon = widget.data("icon") || "lightbulb-o";
 		
 		switch (widget.data("type")) {
 			case "switch":
@@ -110,7 +105,8 @@ function CheckStates()
 
 			request.onMessage = function (response) {
 				if (response.status == 200) {
-					// response.responseBody looks like this: { "type": "SwitchItem", "name": "ItemName", "state": "ON", "link": "http://192.168.1.80:8080/rest/items/ItemName" }
+					// response.responseBody looks like this: 
+					// { "type": "SwitchItem", "name": "ItemName", "state": "ON", "link": "http://192.168.1.80:8080/rest/items/ItemName" }
 					var message = $.parseJSON(response.responseBody);
 					DisplayItemState(widget, message.state);
 				}
@@ -187,7 +183,7 @@ function CheckTrashDay()
 	// Check again at 4 AM (forever, every day)
 	var millisTo4AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 4, 0, 0, 0) - now;
 	if (millisTo4AM < 0) {
-		millisTo4AM += 86400000; // it's after 4AM, try 4AM tomorrow.
+		millisTo4AM += 86400000; // it's after 4 AM, try 4 AM tomorrow.
 	}
 	setTimeout("CheckTrashDay()", millisTo4AM);
 }
@@ -274,7 +270,7 @@ function GetWeatherForecast()
 		
 		$("#forecast_time").html("Forecast Time: " + data.forecast.txt_forecast.date);
 		
-		// After 5 PM, show tomorrow's forecast by default. Before 5 PM, show today's.
+		// After 5 PM: show tomorrow's forecast. Before 5 PM: show today's.
 		var today = new Date();
 		if (today.getHours() >= 17){
 			$("#weather_today").hide();
@@ -300,7 +296,7 @@ function ParseWeatherConditions(conditions) {
 	}
 }
 
-// Capture Clicks
+// Capture clicks: Weather Bar
 $(document).on("mousedown", "div.weather_forecast", function(){
 	// Switch between today & tomorrow
 	if ($("#weather_today").is(":visible")) {
@@ -312,6 +308,7 @@ $(document).on("mousedown", "div.weather_forecast", function(){
 	}
 });
 
+// Capture clicks: Widgets
 $(document).on("mousedown", "widget", function(){
 	var widget = $(this);
 	
@@ -356,6 +353,12 @@ $(document).on("mousedown", "widget", function(){
 
 
 // Helper Functions
+
+// Add a zero in front of numbers < 10
+function ToDoubleDigits(i) {
+	if (i < 10) {i = "0" + i};  
+	return i;
+}
 
 // Write to the console, but only when logging at a level below our loggingLevel
 function Log(text, level) {
