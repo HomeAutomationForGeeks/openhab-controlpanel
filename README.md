@@ -77,7 +77,8 @@ The weather bar uses the [Weather Underground API](http://www.wunderground.com/w
   * Optional: change the default station to one closer to you by clicking on "Change Station".
 * Click on the weather station name - it's right under your location name.
 * On this page the station's ID will be right next to the station name - make a note of that ID.
-  * Example: if you search for "New York, New York", the default station is "Flatiron". If you click on Flatiron, the station's page lists the ID as "KNYNEWYO118".
+  * **Example:** if you search for "New York, New York", the default station is "Flatiron". If you click on Flatiron, the station's page lists the ID as "KNYNEWYO118". 
+  * The full URL is then *(including the "pws:" prefix for weather station codes)*: http://api.wunderground.com/api/YOUR_API_KEY_HERE/conditions/q/pws:KNYNEWYO118.json
 
 ## Installation
 
