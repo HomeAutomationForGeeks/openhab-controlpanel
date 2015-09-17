@@ -24,9 +24,15 @@ class LogEntry
 
 $response = array();
 
-if (isset($_GET["table"]))
+if (isset($_GET["item"]))
 {
-	$sql = "SELECT Time, Value FROM openhab.".$_GET["table"]." ORDER BY Time DESC LIMIT 6;";
+	$itemname = $conn->real_escape_string($_GET["item"]);
+
+	$sql = "SELECT ItemId FROM openhab.Items WHERE ItemName='$itemname' limit 1;";
+	$result = $conn->query($sql);
+	$itemid = $result->fetch_assoc()["ItemId"];
+
+	$sql = "SELECT Time, Value FROM openhab.Item".$itemid." ORDER BY Time DESC LIMIT 6;";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {

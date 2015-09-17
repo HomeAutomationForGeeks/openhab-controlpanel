@@ -190,10 +190,10 @@ function CheckTrashDay()
 
 function GetHistory(widget)
 {
-	// Query the page that gives us history data, for the widget's logid
+	// Query the page that gives us history data for the widget
 	$.ajax({
 		type: "GET",
-		url: logURL + widget.data("logid"),
+		url: logURL + widget.data("item"),
 		dataType: "json"
 	})
 	.done(function(data) {
@@ -327,7 +327,7 @@ $(document).on("mousedown", "widget", function(){
 		}).fail( function(jqXHR, data) { 
 			Log("Error on tap: " + data, 1);
 		});
-	} else if (widget.data("logid")) {
+	} else if (widget.data("history")) {
 		// Clicked on a widget that has history data: toggle between main mode and history mode
 		var widgetmode = widget.data("mode") || "main";
 		

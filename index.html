@@ -27,7 +27,7 @@
 			// OpenHAB URL (without the "http://" part; note that you can't use "localhost" or "127.0.0.1" or OpenHAB will send "Connection Refused")
 			var openhabURL = "192.168.1.80:8080/rest/items/";	// TODO: change this to your Pi's IP address
 			// Log URL
-			var logURL = "http://192.168.1.80/data.php?table=";	// TODO: change this to your Pi's IP address
+			var logURL = "http://192.168.1.80/data.php?item=";	// TODO: change this to your Pi's IP address
 			// Wunderground API
 			// TODO: insert your API key and location code (example location code: pws:KNYNEWYO118)
 			var weatherURL = "http://api.wunderground.com/api/YOUR_API_KEY_HERE/conditions/q/YOUR_LOCATION_CODE_HERE.json";
@@ -66,6 +66,7 @@
 				- type: switch, sensor, openclose, weather, trash
 				- item: exact same item name as in OpenHAB items file
 				- title: text to display in bottom part of widget
+				- history: add this for items that use persistence (logging)
 				- icon: [optional] [type=switch only]
 						see https://fortawesome.github.io/Font-Awesome/icons/ for possible values
 						when omitted defaults to a lightbulb
@@ -79,9 +80,9 @@
 			
 			<widget data-type="switch" data-item="CamSwitch" data-title="Camera" data-icon="video-camera"></widget>
 			
-			<widget data-type="openclose" data-item="Door_Motion" data-title="Front Door" data-logid="Item3"></widget>
+			<widget data-type="openclose" data-item="Door_Motion" data-title="Front Door" data-history="true"></widget>
 			
-			<widget data-type="sensor" data-item="Door_Temperature" data-title="Front Door" data-format="{0}&deg;" data-logid="Item5"></widget>
+			<widget data-type="sensor" data-item="Door_Temperature" data-title="Front Door" data-format="{0}&deg;" data-history="true"></widget>
 			
 			<widget data-type="trash" data-title="Trash" data-trashday="3" data-recycleday="4"></widget>
 		
