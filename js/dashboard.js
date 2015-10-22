@@ -1,4 +1,5 @@
 var socket = $.atmosphere;
+var secondsSinceLoad = 0;
 
 function Start()
 {
@@ -18,6 +19,12 @@ function StartTime() {
 
 	$("div.clock").html(today.getHours() + ":" + ToDoubleDigits(today.getMinutes()));
 	$("div.date").html(today.toDateString());
+	
+	if (today.getHours() == reloadHour && today.getMinutes() == 0 && secondsSinceLoad > 600) {	// The extra checks besides reloadHour are to make sure we don't reload every second when we hit reloadHour
+		window.location.reload(true);
+	}
+	
+	secondsSinceLoad++;
 
 	setTimeout(function(){ StartTime() }, 1000);
 }

@@ -38,6 +38,8 @@
 			// How often to check weather (in milliseconds)
 			var weatherFrequency = 600000;	// every 600 seconds (= 10 minutes)
 			var forecastFrequency = 3600000;	// every 3600 seconds (= 1 hour)
+			
+			var reloadHour = 4;	// time at which to reload the entire page. Helps keep things fresh (Chrome tends to time out the websockets). 24 hour format (0 = midnight, 23 = 11 PM)
 
 			$(document).ready(function() {
 				Log("Document ready", 2);
