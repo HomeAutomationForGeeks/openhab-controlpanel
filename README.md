@@ -1,6 +1,8 @@
 # openhab-controlpanel
 A simple dashboard using the OpenHAB REST services.
 
+**GitHub users:** if you want to **fork** this project, take a look at the [advanced version](https://github.com/HomeAutomationForGeeks/openhab-controlpanel-advanced) instead. It has the config options in a separate file so you don't accidentally share your personal stuff.
+
 ### See also
 
 http://www.homeautomationforgeeks.com/dashboard.shtml
