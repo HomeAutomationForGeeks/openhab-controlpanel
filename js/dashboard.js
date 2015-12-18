@@ -239,8 +239,13 @@ function GetWeatherConditions()
 		// The weather service sends back a lot of data, but we'll only use some
 		$("#observation_icon").attr("src", "weather/" + data.current_observation.icon + ".png");
 		$("#observation_weather").html(ParseWeatherConditions(data.current_observation.weather));
-		$("#observation_temperature").html(data.current_observation.temperature_string);
-		$("#observation_feelslike").html("feels like: " + data.current_observation.feelslike_string);
+		if (weatherUnit == "c"){
+			$("#observation_temperature").html(data.current_observation.temp_c+" &deg;C");
+			$("#observation_feelslike").html("feels like: " + data.current_observation.feelslike_c+" &deg;C");
+		} else {
+			$("#observation_temperature").html(data.current_observation.temp_f+" &deg;F");
+			$("#observation_feelslike").html("feels like: " + data.current_observation.feelslike_f+" &deg;F");
+		}
 		$("#observation_time").html(data.current_observation.observation_time);
 	}).fail( function(jqXHR, data) { 
 		Log("Error getting weather: " + data, 1);
@@ -266,14 +271,25 @@ function GetWeatherForecast()
 		$("#forecast_title", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].date.weekday);
 		$("#forecast_icon", "#weather_today").attr("src", "weather/" + data.forecast.simpleforecast.forecastday[0].icon + ".png");
 		$("#forecast_conditions", "#weather_today").html(ParseWeatherConditions(data.forecast.simpleforecast.forecastday[0].conditions));
-		$("#forecast_high", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].high.fahrenheit + "F (" + data.forecast.simpleforecast.forecastday[0].high.celsius + "C)");
-		$("#forecast_low", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].low.fahrenheit + "F (" + data.forecast.simpleforecast.forecastday[0].low.celsius + "C)");
+		if (weatherUnit == "c"){
+			$("#forecast_high", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].high.celsius + " &deg;C");
+			$("#forecast_low", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].low.celsius + "&deg;C");
+		} else {
+			$("#forecast_high", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].high.fahrenheit + " &deg;F");
+			$("#forecast_low", "#weather_today").html(data.forecast.simpleforecast.forecastday[0].low.fahrenheit + " &deg;F");
+		}
 		
 		$("#forecast_title", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].date.weekday);
 		$("#forecast_icon", "#weather_tomorrow").attr("src", "weather/" + data.forecast.simpleforecast.forecastday[1].icon + ".png");
 		$("#forecast_conditions", "#weather_tomorrow").html(ParseWeatherConditions(data.forecast.simpleforecast.forecastday[1].conditions));
-		$("#forecast_high", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].high.fahrenheit + "F (" + data.forecast.simpleforecast.forecastday[1].high.celsius + "C)");
-		$("#forecast_low", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].low.fahrenheit + "F (" + data.forecast.simpleforecast.forecastday[1].low.celsius + "C)");
+
+		if (weatherUnit == "c"){
+			$("#forecast_high", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].high.celsius + " &deg;C");
+			$("#forecast_low", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].low.celsius + " &deg;C");
+		} else {
+			$("#forecast_high", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].high.fahrenheit + " &deg;F");
+			$("#forecast_low", "#weather_tomorrow").html(data.forecast.simpleforecast.forecastday[1].low.fahrenheit + " &deg;F");
+		}
 		
 		$("#forecast_time").html("Forecast Time: " + data.forecast.txt_forecast.date);
 		
